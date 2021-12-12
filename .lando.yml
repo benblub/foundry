@@ -1,0 +1,23 @@
+name: foundry
+
+proxy:
+  php:
+    - foundry.lndo.site
+
+services:
+    php:
+        type: php:8.0
+        via: apache
+        webroot: public
+        ssl: true
+        xdebug: "debug"
+        build:
+            - composer self-update
+            - composer install
+    db:
+        type: mariadb:10.5.9
+        portforward: 37002
+        creds:
+            database: foundry_with_defaults
+            user: mariadb
+            password: mariadb
